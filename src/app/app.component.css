@@ -1,0 +1,16 @@
+.upload-input {
+    width: 80%;
+    margin: 2em auto;
+}
+
+.img-preview {
+    min-width: 60%;
+    max-width: 60%;
+    align-self: center;
+    margin-bottom: 15px;
+}
+
+.btn-submit {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

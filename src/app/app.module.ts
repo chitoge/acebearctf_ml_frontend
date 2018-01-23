@@ -4,7 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';  // <-- #1 import module
+import { ReactiveFormsModule } from '@angular/forms';
+import { RecaptchaModule } from 'ng-recaptcha';
+import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 import { ByteFormatPipe } from './byte-format.pipe';
 import { InputFileComponent } from './input-file/input-file.component';
@@ -24,7 +26,9 @@ import { AppComponent } from './app.component';
     HttpModule,
     MaterialModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RecaptchaModule.forRoot(),
+    RecaptchaFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

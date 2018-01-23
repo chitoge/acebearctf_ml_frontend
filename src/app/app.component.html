@@ -1,12 +1,6 @@
 <div>
   <mat-toolbar color="primary">
-    <span><mat-icon>mood</mat-icon></span>
-
-    <span>Yay, Material in Angular 2!</span>
-
-    <button mat-icon-button [mat-menu-trigger-for]="menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
+    <span>Image Authenticator</span>
   </mat-toolbar>
   <mat-menu x-position="before" #menu="matMenu">
     <button mat-menu-item>Option 1</button>
@@ -14,28 +8,27 @@
   </mat-menu>
 
   <mat-card>
+    <h2>Submit a file</h2>
     <form [formGroup]="formDoc" (ngSubmit)="onSubmit()" novalidate>
-      <mat-form-field>
-        <app-input-file formControlName="requiredfile" placeholder="Required input" valuePlaceholder="No file selected" required></app-input-file>
+      <mat-form-field class="upload-input">
+        <app-input-file formControlName="requiredfile" placeholder="Image to be evaluated" valuePlaceholder="No file selected"></app-input-file>
         <mat-icon matSuffix>folder</mat-icon>
         <mat-error *ngIf="formDoc.get('requiredfile').hasError('required')">
           Please select a file
         </mat-error>
+        <mat-error *ngIf="formDoc.get('requiredfile').hasError('maxContentSize')">
+          The total size must not exceed {{formDoc.get('requiredfile')?.getError('maxContentSize').maxSize | byteFormat}}
+          ({{formDoc.get('requiredfile')?.getError('maxContentSize').actualSize | byteFormat}}).
+        </mat-error>
       </mat-form-field>
-      <pre>{{formDoc.get('requiredfile').errors | json}}</pre>
-      
-      <button type="submit" [disabled]="formDoc.invalid" mat-raised-button>Submit</button>
-      
-      <hr>
-      <p>Angular Version: {{ngVersion.full}}</p>
-      <p>Material Version: {{version?.commit.author.date | json}}</p>
-      
+      <img class="img-preview" [src]="imagePreviewLink" />
+      <div align="center">
+        <re-captcha formControlName="recaptcha" siteKey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></re-captcha>
+      </div>
+      <button class="btn-submit" type="submit" color="primary" [disabled]="formDoc.invalid" mat-raised-button>Submit</button>  
     </form>
-  </mat-card>
 
-  <span class="done">
-    <button mat-fab>
-      <mat-icon>check circle</mat-icon>
-    </button>
-  </span>
+    <hr>
+    <p>from chitoge with <3</p>
+  </mat-card>
 </div>
