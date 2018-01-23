@@ -14,10 +14,23 @@
   </mat-menu>
 
   <mat-card>
-    <button mat-button>All</button>
-    <button mat-raised-button>Of</button>
-    <button mat-raised-button color="primary">The</button>
-    <button mat-raised-button color="accent">Buttons</button>
+    <form [formGroup]="formDoc" (ngSubmit)="onSubmit()" novalidate>
+      <mat-form-field>
+        <app-input-file formControlName="requiredfile" placeholder="Required input" valuePlaceholder="No file selected" required></app-input-file>
+        <mat-icon matSuffix>folder</mat-icon>
+        <mat-error *ngIf="formDoc.get('requiredfile').hasError('required')">
+          Please select a file
+        </mat-error>
+      </mat-form-field>
+      <pre>{{formDoc.get('requiredfile').errors | json}}</pre>
+      
+      <button type="submit" [disabled]="formDoc.invalid" mat-raised-button>Submit</button>
+      
+      <hr>
+      <p>Angular Version: {{ngVersion.full}}</p>
+      <p>Material Version: {{version?.commit.author.date | json}}</p>
+      
+    </form>
   </mat-card>
 
   <span class="done">
