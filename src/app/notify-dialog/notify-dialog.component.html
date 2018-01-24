@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{data.message}}</h1>
+<div mat-dialog-content>
+  <p>{{content}}</p>
+  <p class="flag-style" *ngIf="hasFlag">{{data.flag}}</p>
+</div>
+<div mat-dialog-actions>
+  <button class="button-right" mat-button (click)="onClick()" cdkFocusInitial>{{buttonCap}}</button>
+</div>

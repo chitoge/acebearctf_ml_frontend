@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { VERSION } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { FileValidators } from './input-file/file-validators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NotifyDialogComponent } from './notify-dialog/notify-dialog.component';
 
 import 'rxjs/add/operator/map';
 
@@ -12,10 +14,10 @@ import 'rxjs/add/operator/map';
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  private version: any;
   formDoc: FormGroup;
-  private ngVersion = VERSION;
   imagePreviewLink = '';
+
+  constructor(private http: HttpClient, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.formDoc = new FormGroup({
@@ -26,7 +28,22 @@ export class AppComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('SUBMITTED', this.formDoc);
+    var formData = new FormData();
+
+    formData.append('file', this.formDoc.get('requiredfile').value.files[0]);
+
+    const headers = new HttpHeaders()
+            .set("Recaptcha-Response", this.formDoc.get('recaptcha').value);
+
+    const req = this.http.post('http://localhost:5000/api/verifier', formData, {headers})
+      .subscribe(
+        res => {
+          this.dialog.open(NotifyDialogComponent, {data: res});
+        },
+        err => {
+          console.log("Error occured");
+        }
+      );
     this.formDoc.reset();
   }
 

@@ -7,18 +7,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ByteFormatPipe } from './byte-format.pipe';
 import { InputFileComponent } from './input-file/input-file.component';
 
 import { AppComponent } from './app.component';
+import { NotifyDialogComponent } from './notify-dialog/notify-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     InputFileComponent,
-    ByteFormatPipe
+    ByteFormatPipe,
+    NotifyDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -28,8 +31,10 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     RecaptchaModule.forRoot(),
-    RecaptchaFormsModule
+    RecaptchaFormsModule,
+    HttpClientModule
   ],
+  entryComponents: [NotifyDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
